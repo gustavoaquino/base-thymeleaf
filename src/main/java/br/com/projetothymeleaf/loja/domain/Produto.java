@@ -1,5 +1,7 @@
 package br.com.projetothymeleaf.loja.domain;
 
+import br.com.projetothymeleaf.loja.to.ProdutoTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,6 +21,15 @@ public class Produto {
 
     @Column(name = "VALOR")
     private String valor;
+
+    public Produto() {
+    }
+
+    public Produto(ProdutoTO produtoTO) {
+        this.id = produtoTO.getId();
+        this.nome = produtoTO.getNome();
+        this.valor = produtoTO.getValor();
+    }
 
     public Long getId() {
         return id;
@@ -51,4 +62,6 @@ public class Produto {
     public void setValor(String valor) {
         this.valor = valor;
     }
+
+
 }

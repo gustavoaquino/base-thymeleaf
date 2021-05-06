@@ -5,6 +5,8 @@ import br.com.projetothymeleaf.loja.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProdutoService {
 
@@ -13,6 +15,10 @@ public class ProdutoService {
 
     public Produto salvar(Produto produto){
         return this.produtoRepository.save(produto);
+    }
+
+    public List<Produto> listarProdutos(){
+        return this.produtoRepository.findAll();
     }
 
 }
