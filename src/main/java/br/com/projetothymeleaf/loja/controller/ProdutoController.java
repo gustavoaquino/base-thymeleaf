@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,9 +40,10 @@ public class ProdutoController {
         return "produtos";
     }
 
+    /*Cadastrar*/
     @GetMapping("/cadastrar")
     public String exibirFormCadastro(){
-        return "cadastro-produtos";
+        return "form-produto";
     }
 
     @PostMapping("/cadastrar")
@@ -51,5 +53,27 @@ public class ProdutoController {
         return "redirect:/produtos";
     }
 
+
+    /*Atualizar*/
+    @GetMapping("/atualizar/{id}")
+    public String atualizarFormProduto(@PathVariable("id") Long id, Model model){
+        final Produto produto = this.produtoService.buscarProdutoById(id);
+        model.addAttribute("produto", produto);
+        model.addAttribute("editar", true);
+        return "form-produto";
+    }
+
+    @PostMapping("/atualizar")
+    public String atualizarFormProduto(ProdutoTO produtoTO){
+        this.produtoService.atualizar(produtoTO);
+        return "redirect:/produtos";
+    }
+
+    /*Deletar*/
+    @GetMapping("/deletar/{id}")
+    public String deletarProduto(@PathVariable("id") Long id){
+        this.produtoService.deletar(id);
+        return "redirect:/produtos";
+    }
 
 }
