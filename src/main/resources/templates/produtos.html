@@ -10,18 +10,29 @@
     <h2> Listagem de produtos </h2>
 </center>
 <div class="content">
-    <table id="customers">
+    <table th:if="${not #lists.isEmpty(produtoList)}" id="customers">
         <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>Valor</th>
+            <th>Ação</th>
         </tr>
         <tr th:each="produto : ${produtoList}">
             <td th:text="${produto.id}"> Alfreds Futterkiste </td>
             <td th:text="${produto.nome}"> Maria Anders </td>
             <td th:text="${produto.valor}"> Germany </td>
+
+            <td>
+                <a th:href="@{produtos/atualizar/{id}(id=${produto.id})}">Atualizar</a>
+                <br />
+                <a th:href="@{produtos/deletar/{id}(id=${produto.id})}">Deletar</a>
+            </td>
+
         </tr>
     </table>
+
+    <span th:if="${#lists.isEmpty(produtoList)}"> Não existe nenhum produto cadastrado </span>
+
 </div>
 </body>
 </html>

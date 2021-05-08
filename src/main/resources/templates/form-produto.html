@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Project</title>
+</head>
+<body>
+<div class="content">
+    <h2> CRUD  </h2>
+    <form th:action="@{/produtos/cadastrar}" method="POST" >
+        <input type="hidden" name="id" th:value="${produto?.id}">
+
+        <label for="nome">Nome </label><br>
+        <input type="text" id="nome" name="nome" th:value=${produto?.nome} placeholder=""><br>
+
+        <label for="valor"> Valor </label><br>
+        <input type="text" id="valor" name="valor" th:value=${produto?.valor} placeholder=""><br>
+
+        <input th:if="${not #bools.isTrue(editar)}" type="submit" value="Criar">
+        <input th:if="${#bools.isTrue(editar)}" th:formaction="@{/produtos/atualizar}" type="submit" value="Atualizar"/>
+    </form>
+</div>
+</body>
+</html>
