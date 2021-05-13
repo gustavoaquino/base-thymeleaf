@@ -1,12 +1,20 @@
 package br.com.projetothymeleaf.loja.to;
 
+import br.com.projetothymeleaf.loja.validation.NomeValido;
+
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 public class ProdutoTO{
 
     private Long id;
+
+    @NomeValido
     private String nome;
+
     private Date dataCriacao;
+
+    @NotEmpty
     private String valor;
 
     public Long getId() {

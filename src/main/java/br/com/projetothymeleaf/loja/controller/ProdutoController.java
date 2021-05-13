@@ -6,11 +6,13 @@ import br.com.projetothymeleaf.loja.to.ProdutoTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -47,12 +49,17 @@ public class ProdutoController {
     }
 
     @PostMapping("/cadastrar")
-    public String salvarFormCadastro(ProdutoTO produtoTO){
+    public String salvarFormCadastro(@Valid ProdutoTO produtoTO, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("error", true);
+            return "form-produto";
+        }
+
         final Produto produto = new Produto(produtoTO);
         this.produtoService.salvar(produto);
         return "redirect:/produtos";
     }
-
 
     /*Atualizar*/
     @GetMapping("/atualizar/{id}")
