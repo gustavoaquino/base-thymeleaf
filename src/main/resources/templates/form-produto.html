@@ -12,14 +12,16 @@
         <input type="hidden" name="id" th:value="${produto?.id}">
 
         <label for="nome">Nome </label><br>
-        <input type="text" id="nome" name="nome" th:value=${produto?.nome} placeholder=""><br>
+        <input type="text"  id="nome" name="nome" th:value=${produto?.nome} placeholder=""><br>
 
         <label for="valor"> Valor </label><br>
         <input type="text" id="valor" name="valor" th:value=${produto?.valor} placeholder=""><br>
 
         <input th:if="${not #bools.isTrue(editar)}" type="submit" value="Criar">
         <input th:if="${#bools.isTrue(editar)}" th:formaction="@{/produtos/atualizar}" type="submit" value="Atualizar"/>
+
     </form>
+    <span style="color:red;" th:if="${#bools.isTrue(error)}"> Verifique o formulário e tente novamente </span>
 </div>
 </body>
 </html>
